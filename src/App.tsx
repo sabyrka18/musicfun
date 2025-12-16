@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const tracks = [
   {
     id: 1,
@@ -11,9 +13,9 @@ const tracks = [
   },
 ]
 
-const selectedTrackId = 2
-
 export const App = () => {
+  const [selectedTrackId, setSelectedTrackId] = useState<number | null>(null)
+
   if (tracks === null) {
     return (
       <div>
@@ -35,10 +37,11 @@ export const App = () => {
   return (
     <div>
       <h1>MusicFun Player</h1>
+      <button onClick={() => setSelectedTrackId(null)}>Reset selection</button>
       <ul>
         {tracks.map((track) => (
           <li key={track.id} style={{ border: `1px solid ${track.id === selectedTrackId ? 'orange' : 'transparent'}` }}>
-            <div>{track.title}</div>
+            <div onClick={() => setSelectedTrackId(track.id)}>{track.title}</div>
             <audio src={track.url} controls></audio>
           </li>
         ))}
