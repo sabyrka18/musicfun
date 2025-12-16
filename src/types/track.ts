@@ -7,7 +7,16 @@ export type TrackAttributes = {
   attachments: TrackAttachments[]
 }
 
+export type TrackDetailsAttributes = {
+  title: string
+  lyrics: string
+}
+
 export type Track = {
   id: string
   attributes: TrackAttributes
+}
+
+export type TrackDetails = {
+  attributes: TrackDetailsAttributes
 }
