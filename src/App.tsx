@@ -1,20 +1,14 @@
-import { useState } from 'react'
-
-const tracks = [
-  {
-    id: 1,
-    title: 'MusicFun Soundtrack',
-    url: 'https://musicfun.it-incubator.app/api/samurai-way-soundtrack.mp3',
-  },
-  {
-    id: 2,
-    title: 'MusicFun Soundtrack – Instrumental',
-    url: 'https://musicfun.it-incubator.app/api/samurai-way-soundtrack-instrumental.mp3',
-  },
-]
+import { useEffect, useState } from 'react'
+import type { Track } from './types/track'
+import { getTracks } from './api/tracks'
 
 export const App = () => {
-  const [selectedTrackId, setSelectedTrackId] = useState<number | null>(null)
+  const [selectedTrackId, setSelectedTrackId] = useState<string | null>(null)
+  const [tracks, setTracks] = useState<Track[] | null>(null)
+
+  useEffect(() => {
+    getTracks().then(data => setTracks(data))
+  }, [])
 
   if (tracks === null) {
     return (
@@ -41,8 +35,8 @@ export const App = () => {
       <ul>
         {tracks.map((track) => (
           <li key={track.id} style={{ border: `1px solid ${track.id === selectedTrackId ? 'orange' : 'transparent'}` }}>
-            <div onClick={() => setSelectedTrackId(track.id)}>{track.title}</div>
-            <audio src={track.url} controls></audio>
+            <div onClick={() => setSelectedTrackId(track.id)}>{track.attributes.title}</div>
+            <audio src={track.attributes.attachments.at(0)?.url} controls></audio>
           </li>
         ))}
       </ul>
