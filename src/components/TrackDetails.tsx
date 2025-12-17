@@ -1,26 +1,29 @@
 import { useEffect, useState } from 'react'
 import { getTrack } from '../api/tracks'
-import type { TrackDetailsDto } from '../types/track'
+import type { TrackDetailsDto } from '../types/trackDto'
 
-export const TrackDetails = () => {
+type Props = {
+  trackId: string | null
+}
+
+export const TrackDetails = ({ trackId }: Props) => {
   const [selectedTrack, setSelectedTrack] = useState<TrackDetailsDto | null>(null)
-  const selectedTrackId = '88133ec1-f82d-4fbb-b53b-5138b6fc7b90'
 
   useEffect(() => {
-    if (!selectedTrackId) {
+    if (!trackId) {
       setSelectedTrack(null)
       return
     }
 
     setSelectedTrack(null)
 
-    getTrack(selectedTrackId).then(data => setSelectedTrack(data))
-  }, [selectedTrackId])
+    getTrack(trackId).then(data => setSelectedTrack(data))
+  }, [trackId])
 
   return (
     <section>
       <h2>Track details</h2>
-      {!selectedTrackId ? (
+      {!trackId ? (
         <p>Track is not selected</p>
       ) : !selectedTrack ? (
         <p>Loading...</p>

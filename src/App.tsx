@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import type { Track, TrackDetailsDto } from './types/track'
+import type { TrackDto, TrackDetailsDto } from './types/trackDto'
 import { getTrack, getTracks } from './api/tracks'
 
 export const App = () => {
   const [selectedTrackId, setSelectedTrackId] = useState<string | null>(null)
   const [selectedTrack, setSelectedTrack] = useState<TrackDetailsDto | null>(null)
-  const [tracks, setTracks] = useState<Track[] | null>(null)
+  const [tracks, setTracks] = useState<TrackDto[] | null>(null)
 
   useEffect(() => {
     getTracks().then(data => setTracks(data))

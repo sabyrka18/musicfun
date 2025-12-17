@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
-import type { Track } from '../types/track'
+import type { TrackDto } from '../types/trackDto'
 import { getTracks } from '../api/tracks'
+import { TrackItem } from './TrackItem'
 
-export const TrackList = () => {
-  const [selectedTrackId, setSelectedTrackId] = useState<string | null>(null)
-  const [tracks, setTracks] = useState<Track[] | null>(null)
+type Props = {
+  onTrackSelect: (trackId: string | null) => void
+  trackId: string | null
+}
+
+export const TrackList = ({ onTrackSelect, trackId }: Props) => {
+  const [tracks, setTracks] = useState<TrackDto[] | null>(null)
 
   useEffect(() => {
     getTracks().then(data => setTracks(data))
@@ -13,23 +18,26 @@ export const TrackList = () => {
   if (tracks === null) return <p>Loading...</p>
   if (tracks.length === 0) return <p>No tracks</p>
 
+  const handleResetClick = () => onTrackSelect(null)
+  const handleClick = (trackId: string | null) => onTrackSelect(trackId)
+
   return (
-    <ul>
-      {tracks?.map((track) => (
-        <li
-          key={track.id}
-          style={{ border: `1px solid ${track.id === selectedTrackId ? 'orange' : '#fff'}` }}
-          onClick={() => setSelectedTrackId(track.id)}
-        >
-          <div>
-            {track.attributes.title}
-          </div>
-          <audio
-            src={track.attributes.attachments.at(0)?.url}
-            controls
-          ></audio>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <button
+        onClick={handleResetClick}>
+        Reset
+      </button>
+      <ul>
+        {tracks?.map((track) => {
+
+          return <TrackItem
+            key={track.id}
+            trackId={trackId}
+            track={track}
+            onTrackSelect={handleClick}
+          />
+        })}
+      </ul>
+    </div>
   )
 }

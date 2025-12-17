@@ -9,10 +9,10 @@ export type TrackAttributes = {
 
 export type TrackDetailsAttributes = {
   title: string
-  lyrics: string
+  lyrics: string | null
 }
 
-export type Track = {
+export type TrackDto = {
   id: string
   attributes: TrackAttributes
 }
