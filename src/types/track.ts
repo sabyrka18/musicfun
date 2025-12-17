@@ -17,6 +17,6 @@ export type Track = {
   attributes: TrackAttributes
 }
 
-export type TrackDetails = {
+export type TrackDetailsDto = {
   attributes: TrackDetailsAttributes
 }
