@@ -1,11 +1,11 @@
-import type { Track, TrackDetailsDto } from '../types/track'
+import type { TrackDto, TrackDetailsDto } from '../types/trackDto'
 import { API_KEY } from '../config/env'
 
-export const getTracks = async (): Promise<Track[]> => {
+export const getTracks = async (): Promise<TrackDto[]> => {
   const res = await fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks', {
     headers: { 'api-key': API_KEY },
   })
-  const json: { data: Track[] } = await res.json()
+  const json: { data: TrackDto[] } = await res.json()
   return json.data
 }
 
