@@ -1,6 +1,6 @@
-import { PageTitle } from './PageTitle'
-import { TrackList } from './TrackList'
-import { TrackDetails } from './TrackDetails'
+import { PageTitle } from './components/PageTitle'
+import { TrackList } from './components/TrackList'
+import { TrackDetails } from './components/TrackDetails'
 import { useState } from 'react'
 
 export const MainPage = () => {
